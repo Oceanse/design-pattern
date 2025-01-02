@@ -1,11 +1,15 @@
 package createmode.factorypattern.simplefactory.demo2;
 
-//抽象图表接口：抽象产品类
+/**
+ * 抽象图表接口：抽象产品类
+ */
 public interface Chart {
-    public void display();
+     void display();
 }
 
-//柱状图类：具体产品类
+/**
+ * 柱状图类：具体产品类
+ */
 class HistogramChart implements Chart {
     public HistogramChart() {
         System.out.println("创建柱状图！");
@@ -17,7 +21,9 @@ class HistogramChart implements Chart {
     }
 }
 
-//饼状图类：具体产品类
+/**
+ * 饼状图类：具体产品类
+ */
 class PieChart implements Chart {
     public PieChart() {
         System.out.println("创建饼状图！");
@@ -29,7 +35,9 @@ class PieChart implements Chart {
     }
 }
 
-//折线图类：具体产品类
+/**
+ * 折线图类：具体产品类
+ */
 class LineChart implements Chart {
     public LineChart() {
         System.out.println("创建折线图！");

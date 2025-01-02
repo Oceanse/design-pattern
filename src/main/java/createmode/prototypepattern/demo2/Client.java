@@ -1,20 +1,39 @@
 package createmode.prototypepattern.demo2;
 
-import createmode.prototypepattern.demo1.ConcretePrototype;
-import createmode.prototypepattern.demo1.IPrototype;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Client（客户类）：让一个原型对象克隆自身从而创建一个新的对象，在客户类中只需要直接实例化或通过工厂方法等方式创建一个原型对象，
- * 再通过调用该对象的克隆方法即可得到多个相同的对象。由于客户类针对抽象原型类Prototype编程，因此用户可以根据需要选择具体原型类，
- * 系统具有较好的可扩展性，增加或更换具体原型类都很方便。
- */
 public class Client {
-    public static void main(String[] args) throws CloneNotSupportedException {
-        ConcretePrototype2 prototype2 = new ConcretePrototype2("attr2");
-        ConcretePrototype2 clone2 =  prototype2.clone();
-        System.out.println("prototype2 = " + prototype2);
-        System.out.println("clone2 = " + clone2);
-        System.out.println(Integer.toHexString(prototype2.hashCode()));
-        System.out.println(Integer.toHexString(clone2.hashCode()));
+    public static void main(String[] args) {
+        // 创建一个装备列表
+        List<Equipment> equipment = new ArrayList<>();
+        equipment.add(new Equipment("Sword", 0, 10, 0));
+        equipment.add(new Equipment("Shield", 0, 0, 5));
+
+        // 创建一个基础角色
+        GameCharacter baseCharacter = new GameCharacter("Base Character", 100, 50, 30, equipment);
+
+        // 克隆并修改基础角色
+        GameCharacter clonedCharacter = baseCharacter.deepClone();
+        clonedCharacter.setName("Knight");
+        clonedCharacter.getEquipment().set(0, new Equipment("Gun", 0, 10, 0));
+
+
+        System.out.println("Original Character:");
+        System.out.println("Name: " + baseCharacter.getName());
+        System.out.println("Health: " + baseCharacter.getHealth());
+        System.out.println("Attack: " + baseCharacter.getAttack());
+        System.out.println("Defense: " + baseCharacter.getDefense());
+        System.out.println("Equipment: " + baseCharacter.getEquipment());
+
+        System.out.println("\nCloned Character 1:");
+        System.out.println("Name: " + clonedCharacter.getName());
+        System.out.println("Health: " + clonedCharacter.getHealth());
+        System.out.println("Attack: " + clonedCharacter.getAttack());
+        System.out.println("Defense: " + clonedCharacter.getDefense());
+        System.out.println("Equipment: " + clonedCharacter.getEquipment());
+
+
     }
 }

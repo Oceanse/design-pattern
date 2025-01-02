@@ -5,17 +5,17 @@ package createmode.factorypattern.simplefactory.demo1;
  * 将所有产品类公共的代码移至抽象产品类，并在抽象产品类中声明一些抽象业务方法，以供不同的具体产品类来实现
  */
 public abstract class Pizza {
-    public abstract void prepare();
+    public abstract void prepare();//面粉 酵母 白糖 水，制成面饼,然后涂上番茄酱，放上芝士碎、火腿、青椒等各种材料
 
-    public abstract void bake();
+    public abstract void bake();//空气炸锅烘焙
 
-    public abstract void cut();
+    public abstract void cut();//切割
 
-    public abstract void box();
+    public abstract void box();//打包
 }
 
 /**
- * 奶酪披萨
+ * 芝士奶酪披萨
  */
 class CheesePizza extends Pizza {
 
@@ -67,9 +67,9 @@ class VeggiePizza extends Pizza {
 }
 
 /**
- * 意式辣肠披萨
+ * 榴莲披萨
  */
-class PepperoniPizza extends Pizza {
+class DurianPizza extends Pizza {
 
     @Override
     public void prepare() {

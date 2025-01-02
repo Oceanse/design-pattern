@@ -1,12 +1,14 @@
 package behaviormode.responsibilitypattern.demo1;
 
 /**
+ * 多级审批
  * Sunny软件公司承接了某企业SCM(Supply Chain Management，供应链管理)系统的开发任务，其中包含一个采购审批子系统。该企业的采购审批是分级进行的，
- * 即根据采购金额的不同由不同层次的主管人员来审批，主任可以审批5万元以下（不包括5万元）的采购单，副董事长可以审批5万元至10万元（不包括10万元）的采购单，
+ * 即根据采购金额的不同由不同层次的主管人员来审批：Director（主任），VicePresident（副董事长），President（董事长），以及 Congress（董事会）
+ * 主任可以审批5万元以下（不包括5万元）的采购单，副董事长可以审批5万元至10万元（不包括10万元）的采购单，
  * 董事长可以审批10万元至50万元（不包括50万元）的采购单，50万元及以上的采购单就需要开董事会讨论决定。
  */
 public abstract class Approver {
-    protected Approver successor; //定义后继对象,该对象的访问符可设为protected，在其子类中可以使用。
+    protected Approver successor; //指向下一个处理者(继承人)
     protected String name; //审批者姓名  
 
     public Approver(String name) {

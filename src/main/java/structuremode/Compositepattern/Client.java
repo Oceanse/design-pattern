@@ -31,9 +31,9 @@ public class Client {
         folder1.add(folder4);
 
         //从“Sunny的资料”节点开始进行杀毒操作
-       // folder1.killVirus();
+       folder1.display();
 
         //如果需要更换操作节点，例如只需对文件夹“文本文件”进行杀毒，客户端代码只需修改一行:
-        folder3.killVirus();
+       // folder3.display();
     }
 }

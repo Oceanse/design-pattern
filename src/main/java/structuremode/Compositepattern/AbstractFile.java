@@ -3,16 +3,21 @@ package structuremode.Compositepattern;
 import java.util.ArrayList;
 
 /**
- * 组合模式的关键是定义了一个抽象构件类，它既可以代表叶子，又可以代表容器，而客户端针对该抽象构件类进行编程，无须知道它到底表示的是叶子还是容器，可以对其进行统一处理。
- * 容器对象与抽象构件类之间还建立一个聚合关联关系，在容器对象中既可以包含叶子，也可以包含容器，以此实现递归组合，形成一个树形结构。
- *
- * Component（抽象构件）：它可以是接口或抽象类，为叶子构件和容器构件对象声明接口,该角色中可以包含所有子类共有行为的声明和实现
- * Leaf（叶子构件）：它在组合结构中表示叶子节点对象，叶子节点没有子节点，它实现了在抽象构件中定义的行为。
- * Composite（容器构件）：它在组合结构中表示容器节点对象，容器节点包含子节点，其子节点可以是叶子节点，也可以是容器节点，它提供一个集合用于存储子节点
- *
- * 何时使用：
- * 1、您想表示对象的部分-整体层次结构（树形结构）。
- * 2、您希望用户忽略组合对象与单个对象的不同，用户将统一地使用组合结构中的所有对象。
+ * 组合模式的关键是定义了一个抽象组件类，它既可以代表叶子组件，又可以代表容器组件，而客户端针对该抽象组件类进行编程，无须知道它到底表示的是叶子还是容器，可以对其进行统一处理。
+ * 容器组件与抽象组件类之间还建立一个聚合关联关系，在容器对象中既可以包含叶子组件，也可以包含容器组件，以此实现递归组合，形成一个树形结构。
+ * <p>
+ * Component（抽象节点）：是叶子节点和容器节点的共同父节点，定义了对容器节点和叶子节点的统一操作，如 add、remove、getChild、display等。
+ * Leaf（叶子节点）：叶子节点没有子节点，它实现了在抽象节点中定义的行为。
+ * Composite（容器节点）：它提供一个集合用于存储子节点，其子节点可以是叶子节点，也可以是容器节点，它实现了在抽象节点中定义的行为。
+ * Client（客户端）：使用 Component 接口的对象，无需关心它是叶子节点还是容器节点。
+ * <p>
+ * 优点：
+ * 易用性(透明性)：客户端可以一致地处理叶子节点和容器节点，无需区分它们的具体类型
+ * 扩展性：可以方便地添加新的叶子节点或者容器节点类型，因为新增加的类只需要实现相同的接口，而不会影响现有的代码结构。
+ * <p>
+ * 使用场景：
+ * 组合模式适用于多种需要处理具有“部分-整体”层次结构的数据的情况，希望忽略组合对象与单个对象的不同，用户将统一地使用组合结构中的所有对象。
+ * 文件系统：文件和文件夹可以形成一个树形结构，文件夹是复合组件，可以包含文件和其他文件夹，文件是叶子组件。
  */
 //抽象构件:抽象文件类，是容器构件类和叶子构件类的共同父类
 public abstract class AbstractFile {
@@ -22,7 +27,7 @@ public abstract class AbstractFile {
 
     public abstract AbstractFile getChild(int i);
 
-    public abstract void killVirus();
+    public abstract void display();
 }
 
 
@@ -49,9 +54,9 @@ class ImageFile extends AbstractFile {
         return null;
     }
 
-    public void killVirus() {
-        //模拟杀毒
-        System.out.println("----对图像文件'" + name + "'进行杀毒");
+    @Override
+    public void display() {
+        System.out.println("图像文件: " + name);
     }
 }
 
@@ -66,22 +71,25 @@ class TextFile extends AbstractFile {
         this.name = name;
     }
 
+    @Override
     public void add(AbstractFile file) {
         System.out.println("对不起，不支持该方法！");
     }
 
+    @Override
     public void remove(AbstractFile file) {
         System.out.println("对不起，不支持该方法！");
     }
 
+    @Override
     public AbstractFile getChild(int i) {
         System.out.println("对不起，不支持该方法！");
         return null;
     }
 
-    public void killVirus() {
-        //模拟杀毒
-        System.out.println("----对文本文件'" + name + "'进行杀毒");
+    @Override
+    public void display() {
+        System.out.println("文本文件: " + name);
     }
 }
 
@@ -96,22 +104,25 @@ class VideoFile extends AbstractFile {
         this.name = name;
     }
 
+    @Override
     public void add(AbstractFile file) {
         System.out.println("对不起，不支持该方法！");
     }
 
+    @Override
     public void remove(AbstractFile file) {
         System.out.println("对不起，不支持该方法！");
     }
 
+    @Override
     public AbstractFile getChild(int i) {
         System.out.println("对不起，不支持该方法！");
         return null;
     }
 
-    public void killVirus() {
-        //模拟杀毒
-        System.out.println("----对视频文件'" + name + "'进行杀毒");
+    @Override
+    public void display() {
+        System.out.println("视频文件: " + name);
     }
 }
 
@@ -128,23 +139,26 @@ class Folder extends AbstractFile {
         this.name = name;
     }
 
+    @Override
     public void add(AbstractFile file) {
         fileList.add(file);
     }
 
+    @Override
     public void remove(AbstractFile file) {
         fileList.remove(file);
     }
 
+    @Override
     public AbstractFile getChild(int i) {
         return fileList.get(i);
     }
 
-    public void killVirus() {
-        System.out.println("****对文件夹'" + name + "'进行杀毒");  //模拟杀毒
-        //递归调用成员构件的killVirus()方法
+    @Override
+    public void display() {
+        //递归调用成员构件的display()方法
         for (AbstractFile obj : fileList) {
-            obj.killVirus();
+            obj.display();
         }
     }
 }
